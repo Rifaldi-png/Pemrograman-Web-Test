@@ -1,0 +1,181 @@
+app/
+ ├─ layout.tsx
+ ├─ page.tsx            → Login Page
+ ├─ dashboard/
+ │    ├─ page.tsx       → User Page
+ │    └─ hak-akses/
+ │         └─ page.tsx  → Hak Akses Page
+
+  #app/layout.tsx
+import "./globals.css";
+import { ReactNode } from "react";
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <body className="bg-black text-gray-900 flex justify-center items-center min-h-screen">
+        <div className="bg-white w-[800px] min-h-[500px] rounded-xl shadow-lg p-6">
+          {children}
+        </div>
+      </body>
+    </html>
+  );
+}
+
+#app/page.tsx (Login Page)
+  "use client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+export default function LoginPage() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Dummy login
+    if (email && password) {
+      router.push("/dashboard");
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center h-full">
+      <h1 className="text-2xl font-bold mb-6">Connect With Us</h1>
+      <form onSubmit={handleLogin} className="w-1/2 space-y-4">
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full border rounded p-2"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full border rounded p-2"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="w-full bg-black text-white py-2 rounded hover:bg-gray-800"
+        >
+          Sign In
+        </button>
+      </form>
+    </div>
+  );
+}
+ #app/dashboard/page.tsx (User Page)
+   import Link from "next/link";
+
+const users = [
+  { name: "Rifaldi", email: "rifaldi@universitasmulia.ac.id", status: "Aktif", role: "Admin" },
+  { name: "Lintang", email: "lintang@universitasmulia.ac.id", status: "Aktif", role: "Employee" },
+  { name: "Shafira", email: "shafira@universitasmulia.ac.id", status: "Aktif", role: "Employee" },
+  { name: "Lebah Ganteng", email: "lebahganteng@universitasmulia.ac.id", status: "Suspended", role: "Employee" },
+];
+
+export default function DashboardPage() {
+  return (
+    <div className="flex h-full">
+      {/* Sidebar */}
+      <aside className="w-1/4 border-r p-4">
+        <h2 className="text-lg font-bold mb-4">Connect</h2>
+        <nav className="flex flex-col space-y-3">
+          <Link href="/dashboard" className="hover:underline">👤 User</Link>
+          <Link href="/dashboard/hak-akses" className="hover:underline">🔑 Hak Akses</Link>
+          <Link href="/" className="hover:underline">🚪 Logout</Link>
+        </nav>
+      </aside>
+
+      {/* Content */}
+      <main className="flex-1 p-6">
+        <input
+          type="text"
+          placeholder="Cari user"
+          className="w-full border rounded p-2 mb-4"
+        />
+
+        <div className="space-y-2">
+          {users.map((user, i) => (
+            <div
+              key={i}
+              className="flex justify-between items-center border p-3 rounded"
+            >
+              <div>
+                <p className="font-semibold">{user.name}</p>
+                <p className="text-sm text-gray-600">{user.email}</p>
+              </div>
+              <span
+                className={`px-3 py-1 rounded text-sm ${
+                  user.status === "Aktif"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                }`}
+              >
+                {user.status}
+              </span>
+            </div>
+          ))}
+        </div>
+      </main>
+    </div>
+  );
+}
+#app/dashboard/hak-akses/page.tsx (Hak Akses Page)
+  import Link from "next/link";
+
+const roles = [
+  { id: 1, name: "Employee" },
+  { id: 2, name: "Admin" },
+];
+
+export default function HakAksesPage() {
+  return (
+    <div className="flex h-full">
+      {/* Sidebar */}
+      <aside className="w-1/4 border-r p-4">
+        <h2 className="text-lg font-bold mb-4">Connect</h2>
+        <nav className="flex flex-col space-y-3">
+          <Link href="/dashboard" className="hover:underline">👤 User</Link>
+          <Link href="/dashboard/hak-akses" className="hover:underline">🔑 Hak Akses</Link>
+          <Link href="/" className="hover:underline">🚪 Logout</Link>
+        </nav>
+      </aside>
+
+      {/* Content */}
+      <main className="flex-1 p-6">
+        <input
+          type="text"
+          placeholder="Cari Hak Akses"
+          className="w-full border rounded p-2 mb-4"
+        />
+
+        <table className="w-full border">
+          <thead>
+            <tr className="border-b">
+              <th className="text-left p-2">No</th>
+              <th className="text-left p-2">Hak Akses</th>
+              <th className="text-left p-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {roles.map((role) => (
+              <tr key={role.id} className="border-b">
+                <td className="p-2">{role.id}</td>
+                <td className="p-2">{role.name}</td>
+                <td className="p-2 flex space-x-3">
+                  <button className="text-blue-600 hover:underline">✏️</button>
+                  <button className="text-red-600 hover:underline">🗑️</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </main>
+    </div>
+  );
+}
