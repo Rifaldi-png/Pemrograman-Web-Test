@@ -85,9 +85,9 @@ export default function DashboardPage() {
       <aside className="w-1/4 border-r p-4">
         <h2 className="text-lg font-bold mb-4">Connect</h2>
         <nav className="flex flex-col space-y-3">
-          <Link href="/dashboard" className="hover:underline">👤 User</Link>
-          <Link href="/dashboard/hak-akses" className="hover:underline">🔑 Hak Akses</Link>
-          <Link href="/" className="hover:underline">🚪 Logout</Link>
+          <Link href="/dashboard" className="hover:underline"> User</Link>
+          <Link href="/dashboard/hak-akses" className="hover:underline"> Hak Akses</Link>
+          <Link href="/" className="hover:underline"> Logout</Link>
         </nav>
       </aside>
 
@@ -140,9 +140,9 @@ export default function HakAksesPage() {
       <aside className="w-1/4 border-r p-4">
         <h2 className="text-lg font-bold mb-4">Connect</h2>
         <nav className="flex flex-col space-y-3">
-          <Link href="/dashboard" className="hover:underline">👤 User</Link>
-          <Link href="/dashboard/hak-akses" className="hover:underline">🔑 Hak Akses</Link>
-          <Link href="/" className="hover:underline">🚪 Logout</Link>
+          <Link href="/dashboard" className="hover:underline"> User</Link>
+          <Link href="/dashboard/hak-akses" className="hover:underline"> Hak Akses</Link>
+          <Link href="/" className="hover:underline"> Logout</Link>
         </nav>
       </aside>
 
@@ -168,8 +168,8 @@ export default function HakAksesPage() {
                 <td className="p-2">{role.id}</td>
                 <td className="p-2">{role.name}</td>
                 <td className="p-2 flex space-x-3">
-                  <button className="text-blue-600 hover:underline">✏️</button>
-                  <button className="text-red-600 hover:underline">🗑️</button>
+                  <button className="text-blue-600 hover:underline"></button>
+                  <button className="text-red-600 hover:underline"></button>
                 </td>
               </tr>
             ))}
